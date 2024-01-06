@@ -61,6 +61,7 @@ abstract class CakeRepository
     {
         return clone $this
             ->queryBuilder
+            ->contain($this->table->associations()->keys())
             ->formatResults(
                 fn (ResultSet $results) => array_map(
                     [$this, 'convertDomain'], $results->toArray()
@@ -152,7 +153,7 @@ abstract class CakeRepository
 
         $model->setNew($isNew);
 
-        return $this->table->save($model)->toDomain();
+        return $this->table->save($model, ['associated' => $this->table->associations()->keys()])->toDomain();
     }
 
     /**
