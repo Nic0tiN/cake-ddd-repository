@@ -1,3 +1,7 @@
+*.cache
+.idea
+*.sqlite
+
 # CakePHP 3
 
 /vendor/*
