@@ -144,11 +144,12 @@ abstract class CakeRepository
     {
         $model = $this->convertEntity($entity);
 
-        $isNew = $model->id === null;
-        if ($new === null && !$isNew) {
+        if ($new !== null) {
+            $isNew = $new;
+        } elseif ($model->id !== null) {
             $isNew = $this->checkExisting($model);
         } else {
-            $isNew = $new;
+            $isNew = true;
         }
 
         $model->setNew($isNew);
